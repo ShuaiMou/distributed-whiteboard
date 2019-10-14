@@ -8,4 +8,5 @@ public interface Client extends Remote{
     String getUsername() throws RemoteException;
     boolean hintWindow(String message) throws RemoteException;
     void exit() throws RemoteException;
+
 }

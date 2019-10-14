@@ -35,7 +35,7 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
 
     public void collaboratorLogin(Client client) throws RemoteException {
         if (users.size() != 0){
-            boolean confirmation = users.get(0).hintWindow(client.getUsername() + " want join this whiteboard");
+            boolean confirmation = users.get(0).hintWindow(client.getUsername() + " want to share your whiteboard");
             if ( !confirmation ){
                 client.hintWindow("you are not permitted.");
                 client.exit();
