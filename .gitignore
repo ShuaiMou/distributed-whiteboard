@@ -1,7 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
-createWhiteBoard/target/generated-sources/
-joinWhiteboard/target/generated-sources/
-whiteboardServer/target/generated-sources/
+createWhiteBoard/target/
+joinWhiteboard/target/
+whiteboardServer/target/
 .idea
 *.iml
 
