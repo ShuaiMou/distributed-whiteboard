@@ -1,11 +1,15 @@
 package client;
 
 import lombok.Setter;
+import multiInterface.BoardThread;
 import remoteInterface.Client;
 import view.DrawPanel;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +53,9 @@ public class RMIClient implements Client {
 
         int i = 0;
         for (Client client : clients){
-
-            nameList.add(client.getUsername());
+            if (!client.getUsername().equals(BoardThread.client.getUsername())) {
+                nameList.add(client.getUsername());
+            }
             System.out.println(nameList);
             onlineUser.append(client.getUsername() + ",");
             i ++;
@@ -61,7 +66,8 @@ public class RMIClient implements Client {
     }
 
 
-    public void paint(BufferedImage image) throws RemoteException {
+    public void paint(byte[] bytes) throws IOException {
+        BufferedImage image = ImageIO.read( new ByteArrayInputStream(bytes));
         drawPanel.setImage(image);
         drawPanel.repaint();
     }

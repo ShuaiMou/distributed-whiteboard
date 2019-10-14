@@ -4,8 +4,11 @@ import lombok.Setter;
 import remoteInterface.Client;
 import view.DrawPanel;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
 @Setter
@@ -54,7 +57,8 @@ public class RMIClient implements Client {
         }
     }
 
-    public void paint(BufferedImage image) throws RemoteException {
+    public void paint(byte[] bytes) throws IOException {
+        BufferedImage image = ImageIO.read( new ByteArrayInputStream(bytes));
         drawPanel.setImage(image);
         drawPanel.repaint();
     }

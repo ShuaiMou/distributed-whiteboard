@@ -3,9 +3,6 @@ package server;
 import remoteInterface.Client;
 import remoteInterface.Communication;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -75,9 +72,6 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
             }
         }
 
-
-
-
     }
 
 
@@ -91,9 +85,8 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
     }
 
     public void draw(byte[] bytes) throws IOException {
-        BufferedImage image = ImageIO.read( new ByteArrayInputStream(bytes));
         for (Client c : users){
-            c.paint(image);
+            c.paint(bytes);
         }
     }
 

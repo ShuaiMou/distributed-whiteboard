@@ -4,6 +4,7 @@ import client.RMIClient;
 import lombok.Setter;
 import multiInterface.BoardThread;
 import multiInterface.ManageMultiInterface;
+
 import view.DrawPanel;
 
 import javax.imageio.ImageIO;
@@ -45,10 +46,13 @@ public class FileProcessListener implements ActionListener {
 
                 String [] options = RMIClient.nameList.toArray(new String[RMIClient.nameList.size()]);
 
-                String s = (String) JOptionPane.showInputDialog(null,"please select user:\n", "Kick out", JOptionPane.PLAIN_MESSAGE, new ImageIcon("xx.png"), options, "xx");
+                String s = (String) JOptionPane.showInputDialog(null,"please select user:\n", "Kick out", JOptionPane.PLAIN_MESSAGE, new ImageIcon("xx.png"), options, "...");
+                if (s!=null){
+                    RMIClient.nameList.removeAll(RMIClient.nameList);
+                    BoardThread.server.quit1(s);
+                }
 
-                BoardThread.server.quit1(s);
-                System.out.println(s);
+
             } catch (RemoteException ex) {
                 ex.printStackTrace();
             }
