@@ -49,4 +49,12 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
         }
     }
 
+    public void quit(Client client) throws RemoteException {
+        users.remove(client);
+        for (Client c : users){
+            c.showOnlineUser(users);
+        }
+        client.exit();
+    }
+
 }

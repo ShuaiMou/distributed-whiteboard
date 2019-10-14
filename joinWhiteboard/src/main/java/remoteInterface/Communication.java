@@ -8,4 +8,5 @@ public interface Communication extends Remote{
     void showHint(String message) throws RemoteException;
     void managerLogin(Client client) throws RemoteException;
     void collaboratorLogin(Client client) throws RemoteException;
+    void quit(Client client) throws RemoteException;
 }
