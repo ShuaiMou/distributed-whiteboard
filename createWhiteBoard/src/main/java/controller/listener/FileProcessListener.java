@@ -1,5 +1,6 @@
 package controller.listener;
 
+import client.RMIClient;
 import lombok.Setter;
 import multiInterface.BoardThread;
 import multiInterface.ManageMultiInterface;
@@ -20,6 +21,7 @@ public class FileProcessListener implements ActionListener {
     private JFrame frame;
     private @Setter String filePath;
     private DrawPanel drawPanel;
+    private String[] options ;
 
     public FileProcessListener(DrawPanel drawPanel, JFrame frame) {
         this.drawPanel = drawPanel;
@@ -38,8 +40,23 @@ public class FileProcessListener implements ActionListener {
             saveAsFile();
         } else if (e.getActionCommand().equals("close")) {
             closeFile();
+        } else if (e.getActionCommand().equals("kick out")) {
+            try {
+
+                String [] options = RMIClient.nameList.toArray(new String[RMIClient.nameList.size()]);
+
+                String s = (String) JOptionPane.showInputDialog(null,"please select user:\n", "Kick out", JOptionPane.PLAIN_MESSAGE, new ImageIcon("xx.png"), options, "xx");
+
+                BoardThread.server.quit1(s);
+                System.out.println(s);
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
+            }
+
+
         }
     }
+
 
     private void newFile() {
         BoardThread thread = new BoardThread();

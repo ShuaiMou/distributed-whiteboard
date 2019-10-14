@@ -29,8 +29,8 @@ public class MainFrame extends JFrame{
      */
     private JMenuBar createMenuBar() {
         JMenuBar jmb = new JMenuBar();
-        String[] arrayMenu = { "file", "join room","disconnect", "help"};
-        String[][] arrayMenuItem = { { "new", "open", "save", "save as", "close"}, { "join room" },
+        String[] arrayMenu = { "File", "User Management","disconnect", "help"};
+        String[][] arrayMenuItem = { { "new", "open", "save", "save as", "close"}, { "kick out" },
                 {"disconnect"}, { "instructions", "about it" } };
         for (int i = 0; i < arrayMenu.length; i++) {
             JMenu menu = new JMenu(arrayMenu[i]);

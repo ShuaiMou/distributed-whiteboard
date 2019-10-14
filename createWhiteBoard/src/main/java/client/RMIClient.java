@@ -7,6 +7,7 @@ import view.DrawPanel;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 @Setter
 public class RMIClient implements Client {
@@ -14,6 +15,8 @@ public class RMIClient implements Client {
     private JTextArea communicationWindow;
     private JTextArea onlineUser;
     private DrawPanel drawPanel;
+    public static ArrayList<String>nameList = new ArrayList<String>();;
+
 
 
     public void showMessage(String message) throws RemoteException {
@@ -43,8 +46,12 @@ public class RMIClient implements Client {
     public void showOnlineUser(List<Client> clients) throws RemoteException {
         onlineUser.setText("");
         onlineUser.append("online users: \n");
+
         int i = 0;
         for (Client client : clients){
+
+            nameList.add(client.getUsername());
+            System.out.println(nameList);
             onlineUser.append(client.getUsername() + ",");
             i ++;
             if ( i % 3 == 0){
@@ -52,6 +59,7 @@ public class RMIClient implements Client {
             }
         }
     }
+
 
     public void paint(BufferedImage image) throws RemoteException {
         drawPanel.setImage(image);

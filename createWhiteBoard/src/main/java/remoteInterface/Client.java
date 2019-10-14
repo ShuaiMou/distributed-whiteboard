@@ -12,4 +12,5 @@ public interface Client extends Remote{
     void exit() throws RemoteException;
     void showOnlineUser(List<Client> clients) throws RemoteException;
     void paint(BufferedImage image) throws RemoteException;
+
 }

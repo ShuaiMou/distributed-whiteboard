@@ -15,6 +15,7 @@ public class RMIClient implements Client {
     private JTextArea onlineUser;
     private DrawPanel drawPanel;
 
+
     public void showMessage(String message) throws RemoteException {
         communicationWindow.append(message);
     }
@@ -44,6 +45,7 @@ public class RMIClient implements Client {
         onlineUser.append("online users: \n");
         int i = 0;
         for (Client client : clients){
+
             onlineUser.append(client.getUsername() + ",");
             i++;
             if ( i % 3 == 0){

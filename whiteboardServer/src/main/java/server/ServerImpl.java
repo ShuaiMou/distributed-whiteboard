@@ -61,6 +61,26 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
         client.exit();
     }
 
+    public void quit1(String name) throws RemoteException {
+
+
+        for (Client c : users){
+            if (c.getUsername().equals(name)){
+                users.remove(c);
+                for (Client d : users){
+                    d.showOnlineUser(users);
+                }
+                c.hintWindow("Sorry, you are not VIP, you are kicked out. Bye Bye");
+                c.exit();
+            }
+        }
+
+
+
+
+    }
+
+
     public void close(Client client) throws RemoteException {
         users.remove(client);
         for (Client c : users) {
