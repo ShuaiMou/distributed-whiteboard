@@ -23,7 +23,7 @@ public class RMIClient implements Client {
 
     public boolean hintWindow(String message) throws RemoteException{
         Object[] selection = {"Yes", "No"};
-        int exit = JOptionPane.showOptionDialog(null, message,
+        int exit = JOptionPane.showOptionDialog(communicationWindow, message,
                 "exit dialog", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                 null, selection, selection[0]);
         if (exit == 0){

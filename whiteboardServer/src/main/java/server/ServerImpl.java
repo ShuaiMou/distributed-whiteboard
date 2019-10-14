@@ -57,4 +57,13 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
         client.exit();
     }
 
+    public void close(Client client) throws RemoteException {
+        users.remove(client);
+        for (Client c : users) {
+            users.remove(c);
+            c.hintWindow("the manager closed this application, you are forced to quit.");
+            c.exit();
+        }
+    }
+
 }

@@ -33,7 +33,7 @@ public class StartClient {
             UnicastRemoteObject.exportObject(BoardThread.client,0 );
             BoardThread.server = (Communication) Naming.lookup("rmi://" + serverIPAddress +":" + serverPort + "/Communication");
 
-            Thread.currentThread().sleep(1500);
+            Thread.currentThread().sleep(2000);
 
             BoardThread.server.managerLogin(BoardThread.client);
 

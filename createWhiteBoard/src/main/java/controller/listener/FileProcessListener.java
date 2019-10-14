@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 public class FileProcessListener implements ActionListener {
 
@@ -78,8 +79,15 @@ public class FileProcessListener implements ActionListener {
                 "exit dialog", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
                 null, selection, selection[0]);
         if (exit == 0) {
-            frame.dispose();
-            ManageMultiInterface.executor.shutdown();
+            try {
+                BoardThread.server.close(BoardThread.client);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }finally {
+                frame.dispose();
+                ManageMultiInterface.executor.shutdown();
+            }
+
         }
     }
 
