@@ -33,4 +33,8 @@ public class RMIClient implements Client {
         }
     }
 
+    public void exit() throws RemoteException {
+        System.exit(0);
+    }
+
 }

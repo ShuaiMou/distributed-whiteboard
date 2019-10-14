@@ -21,6 +21,10 @@ public class RMIClient implements Client {
         return this.name;
     }
 
+    public boolean managerLogin(String message) throws RemoteException {
+        return false;
+    }
+
     public boolean hintWindow(String message) throws RemoteException{
         Object[] selection = {"Yes", "No"};
         int exit = JOptionPane.showOptionDialog(null, message,
@@ -31,6 +35,10 @@ public class RMIClient implements Client {
         }else {
             return false;
         }
+    }
+
+    public void exit() throws RemoteException {
+        System.exit(0);
     }
 
 }
