@@ -2,8 +2,10 @@ package client;
 
 import lombok.Setter;
 import remoteInterface.Client;
+import view.DrawPanel;
 
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.rmi.RemoteException;
 import java.util.List;
 @Setter
@@ -11,6 +13,7 @@ public class RMIClient implements Client {
     private String name;
     private JTextArea communicationWindow;
     private JTextArea onlineUser;
+    private DrawPanel drawPanel;
 
 
     public void showMessage(String message) throws RemoteException {
@@ -48,6 +51,11 @@ public class RMIClient implements Client {
                 onlineUser.append("\n");
             }
         }
+    }
+
+    public void paint(BufferedImage image) throws RemoteException {
+        drawPanel.setImage(image);
+        drawPanel.repaint();
     }
 
 }

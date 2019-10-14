@@ -3,6 +3,10 @@ package server;
 import remoteInterface.Client;
 import remoteInterface.Communication;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -63,6 +67,13 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
             users.remove(c);
             c.hintWindow("the manager closed this application, you are forced to quit.");
             c.exit();
+        }
+    }
+
+    public void draw(byte[] bytes) throws IOException {
+        BufferedImage image = ImageIO.read( new ByteArrayInputStream(bytes));
+        for (Client c : users){
+            c.paint(image);
         }
     }
 
