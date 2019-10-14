@@ -30,15 +30,20 @@ public class StartClient {
             BoardThread thread = new BoardThread();
             ManageMultiInterface.executor.execute(thread);
             BoardThread.client.setName(username);
-
             UnicastRemoteObject.exportObject(BoardThread.client,0 );
             BoardThread.server = (Communication) Naming.lookup("rmi://" + serverIPAddress +":" + serverPort + "/Communication");
+
+            Thread.currentThread().sleep(1500);
+
             BoardThread.server.managerLogin(BoardThread.client);
+
         } catch (CmdLineException e) {
             e.printStackTrace();
         } catch (NotBoundException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 

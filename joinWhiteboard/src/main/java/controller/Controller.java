@@ -54,7 +54,7 @@ public class Controller {
         view.getMainFrame().addWindowListener(windowListener);
         view.getCommunicationPanel().getSend().addActionListener(communicationPanelListener);
         BoardThread.client.setCommunicationWindow(view.getCommunicationPanel().getCommunicationWindow());
-
+        BoardThread.client.setOnlineUser(view.getCommunicationPanel().getOnlineUser());
     }
 
 }

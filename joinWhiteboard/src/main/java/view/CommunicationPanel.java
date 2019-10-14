@@ -21,8 +21,6 @@ public class CommunicationPanel extends JPanel {
         onlineUser.setEditable(false);
         onlineUser.setPreferredSize(new Dimension(150,50));
         onlineUser.append("online user: \n");
-        onlineUser.append("Saul, Anna, Chenyu \n");
-        onlineUser.append("Joey");
         this.add(onlineUser);
 
         communicationWindow = new JTextArea();

@@ -20,9 +20,7 @@ public class CommunicationPanel extends JPanel {
         onlineUser.setLineWrap(true);
         onlineUser.setEditable(false);
         onlineUser.setPreferredSize(new Dimension(150,50));
-        onlineUser.append("online user: \n");
-        onlineUser.append("Saul, Anna, Chenyu \n");
-        onlineUser.append("Joey");
+        onlineUser.append("online users: \n");
         this.add(onlineUser);
 
         communicationWindow = new JTextArea();

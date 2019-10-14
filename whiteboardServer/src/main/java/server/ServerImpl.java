@@ -29,8 +29,9 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
 
     }
 
-    public void managerLogin(Client client) {
+    public void managerLogin(Client client) throws RemoteException {
         users.add(client);
+        client.showOnlineUser(users);
     }
 
     public void collaboratorLogin(Client client) throws RemoteException {
@@ -41,6 +42,9 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
                 client.exit();
             }else {
                 users.add(client);
+                for (Client c : users){
+                    c.showOnlineUser(users);
+                }
             }
         }
     }
