@@ -1,6 +1,7 @@
 package client;
 
 import lombok.Setter;
+import multiInterface.BoardThread;
 import remoteInterface.Client;
 
 import javax.swing.*;
@@ -45,8 +46,9 @@ public class RMIClient implements Client {
 
         int i = 0;
         for (Client client : clients){
-
-            nameList.add(client.getUsername());
+            if (!client.getUsername().equals(BoardThread.client.getUsername())) {
+                nameList.add(client.getUsername());
+            }
             System.out.println(nameList);
             onlineUser.append(client.getUsername() + ",");
             i ++;
