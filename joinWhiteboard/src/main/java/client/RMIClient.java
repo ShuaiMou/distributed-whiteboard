@@ -1,5 +1,6 @@
 package client;
 
+import WhiteboardUtil.Point;
 import controller.listener.ColorButtonListener;
 import controller.listener.DrawPanelListener;
 import lombok.Setter;
@@ -14,7 +15,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
-import WhiteboardUtil.Point;
 @Setter
 public class RMIClient implements Client {
     private String name;
@@ -61,17 +61,22 @@ public class RMIClient implements Client {
         }
     }
 
-    public void paintImage(byte[] bytes) throws IOException {
-        BufferedImage image = ImageIO.read( new ByteArrayInputStream(bytes));
+    public void paintImage(byte[] bytes) throws RemoteException {
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read( new ByteArrayInputStream(bytes));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         drawPanel.setImage(image);
         drawPanel.repaint();
     }
 
-    public void paint(Point[] points, Color color, String command,boolean flag) throws RemoteException {
+    public void paint(java.util.List<Integer> pointss, Color color, String command,boolean flag) throws RemoteException {
         drawPanelListener.setCommand(command);
-        drawPanelListener.setStartPoint(points[0]);
-        drawPanelListener.setEndPoint(points[1]);
-        drawPanelListener.setDragEndPoint(points[2]);
+        drawPanelListener.setStartPoint(new Point(pointss.get(0), pointss.get(1)));
+        drawPanelListener.setEndPoint(new Point(pointss.get(2), pointss.get(3)));
+        drawPanelListener.setDragEndPoint(new Point(pointss.get(4), pointss.get(5)));
         drawPanelListener.setFlag(flag);
         colorButtonListener.setColor(color);
         drawPanel.repaint();

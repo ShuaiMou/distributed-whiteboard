@@ -11,7 +11,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 @Setter
 public class DrawPanel extends JScrollPane  {
@@ -115,11 +117,17 @@ public class DrawPanel extends JScrollPane  {
 
         }
 
-        Point[] points = {new Point(x1,y1),new Point(x2,y2),new Point(x3,y3)};
+        List<Integer> pointss = new ArrayList<Integer>(6);
+        pointss.add(x1);
+        pointss.add(y1);
+        pointss.add(x2);
+        pointss.add(y2);
+        pointss.add(x3);
+        pointss.add(y3);
 
         try {
             if ( BoardThread.server != null)
-                BoardThread.server.draw(points,color,command,BoardThread.client,fl);
+                BoardThread.server.draw(pointss,color,command,BoardThread.client,fl);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

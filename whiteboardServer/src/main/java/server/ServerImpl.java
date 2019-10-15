@@ -4,7 +4,6 @@ import remoteInterface.Client;
 import remoteInterface.Communication;
 
 import java.awt.*;
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -85,19 +84,19 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
         }
     }
 
-    public void drawImage(byte[] bytes) throws IOException {
+    public void drawImage(byte[] bytes) throws RemoteException {
         for (Client c : users){
             c.paintImage(bytes);
         }
     }
 
-    public void draw(Point[] points, Color color, String command, Client client,boolean flag) throws RemoteException{
+    public void draw(java.util.List<Integer> pointss, Color color, String command, Client client,boolean flag) throws RemoteException{
         System.out.println("draw before");
         for (Client c : users){
-//            if (!client.getUsername().equals(c.getUsername())){
-            c.paint(points,color,command,flag);
+            if (!client.getUsername().equals(c.getUsername())){
+            c.paint(pointss,color,command,flag);
             System.out.println("draw after");
-//            }
+            }
 
         }
     }
