@@ -4,6 +4,7 @@ import WhiteboardUtil.Point;
 import controller.listener.ColorButtonListener;
 import controller.listener.DrawOperationButtonListener;
 import controller.listener.DrawPanelListener;
+import lombok.Getter;
 import lombok.Setter;
 import multiInterface.BoardThread;
 
@@ -21,7 +22,7 @@ public class DrawPanel extends JScrollPane  {
     private ColorButtonListener colorButtonListener;
     private DrawOperationButtonListener drawOperationButtonListener;
     private DrawPanelListener drawPanelListener;
-    private @Setter BufferedImage image;
+    private @Getter BufferedImage image;
     private String command;
     private Color color;
     LinkedList<Point> freehandPoints;
@@ -121,6 +122,9 @@ public class DrawPanel extends JScrollPane  {
                 baos.flush();
                 byte[] imageInByte = baos.toByteArray();
                 baos.close();
+
+//                image = ImageIO.read( new ByteArrayInputStream(imageInByte));
+
                 BoardThread.server.draw(imageInByte);
 
             } catch (RemoteException e) {

@@ -4,12 +4,10 @@ import client.RMIClient;
 import lombok.Setter;
 import multiInterface.BoardThread;
 import multiInterface.ManageMultiInterface;
-
 import view.DrawPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -143,40 +141,29 @@ public class FileProcessListener implements ActionListener {
     }
 
     private void writeFile(String savepath) {
-//        BufferedWriter writer = null;
-//        String content;
-
-//            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(savepath, false), "UTF-8"));
-//            content = gson.toJson(picture);
-//            writer.write(content);
-//            writer.close();
 
         if (savepath == null) {
             savepath = "image";
         }
         try {
-            Point location = frame.getLocation();
-            int x = (int) location.getX();
-            int y = (int) location.getY();
-
-            Dimension size = drawPanel.getSize();
-            int width = (int) size.getWidth();
-            int height = (int) size.getHeight();
-
-//            System.out.println("x   "+x);
-//            System.out.println("y   "+y);
-//            System.out.println("w   "+width);
-//            System.out.println("h   "+height);
-
-
-            BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-            Graphics2D g = image.createGraphics();
-            g.translate(x, y);
-            drawPanel.paint(g);
-            ImageIO.write(image, "jpeg", new File("drawpanelImage.jpg"));
-            BufferedImage myImage;
-            myImage = new Robot().createScreenCapture(
-                    new Rectangle(x + 100, y + 44, width, height));
+//            Point location = frame.getLocation();
+//            int x = (int) location.getX();
+//            int y = (int) location.getY();
+//
+//            Dimension size = drawPanel.getSize();
+//            int width = (int) size.getWidth();
+//            int height = (int) size.getHeight();
+//
+//
+//            BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+//            Graphics2D g = image.createGraphics();
+//            g.translate(x, y);
+//            drawPanel.paint(g);
+//            ImageIO.write(image, "jpeg", new File("drawpanelImage.jpg"));
+//            BufferedImage myImage;
+//            myImage = new Robot().createScreenCapture(
+//                    new Rectangle(x + 100, y + 44, width, height));
+            BufferedImage myImage = drawPanel.getImage();
             ImageIO.write(myImage, "jpg", new File(savepath + ".jpg"));
         } catch (Exception e) {
             System.out.println("There is a problem with saving the file.");
