@@ -1,6 +1,7 @@
 package controller.listener;
 
 import lombok.Getter;
+import lombok.Setter;
 import view.DrawPanel;
 
 import java.awt.event.ActionEvent;
@@ -8,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class DrawOperationButtonListener implements ActionListener {
 
-    private @Getter String drawOperationCommond;
+    private @Getter @Setter String drawOperationCommond;
     private DrawPanel drawPanel;
     public DrawOperationButtonListener(DrawPanel drawPanel){
         this.drawPanel = drawPanel;
@@ -46,5 +47,6 @@ public class DrawOperationButtonListener implements ActionListener {
             drawOperationCommond = "init";
         }
     }
+
 
 }

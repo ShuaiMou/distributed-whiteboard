@@ -5,15 +5,11 @@ import controller.listener.ColorButtonListener;
 import controller.listener.DrawOperationButtonListener;
 import controller.listener.DrawPanelListener;
 import lombok.Setter;
-import multiInterface.BoardThread;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 @Setter
 public class DrawPanel extends JScrollPane  {
@@ -114,22 +110,6 @@ public class DrawPanel extends JScrollPane  {
         }
         if(fl==false){
             g2d.drawImage(image, 0, 0, this);
-
-        }
-
-        List<Integer> pointss = new ArrayList<Integer>(6);
-        pointss.add(x1);
-        pointss.add(y1);
-        pointss.add(x2);
-        pointss.add(y2);
-        pointss.add(x3);
-        pointss.add(y3);
-
-        try {
-            if ( BoardThread.server != null)
-                BoardThread.server.draw(pointss,color,command,BoardThread.client,fl);
-        } catch (RemoteException e) {
-            e.printStackTrace();
         }
 
     }

@@ -73,7 +73,7 @@ public class RMIClient implements Client {
     }
 
     public void paint(java.util.List<Integer> pointss, Color color, String command,boolean flag) throws RemoteException {
-        drawPanelListener.setCommand(command);
+        drawPanelListener.getDrawOperationButtonListener().setDrawOperationCommond(command);
         drawPanelListener.setStartPoint(new Point(pointss.get(0), pointss.get(1)));
         drawPanelListener.setEndPoint(new Point(pointss.get(2), pointss.get(3)));
         drawPanelListener.setDragEndPoint(new Point(pointss.get(4), pointss.get(5)));

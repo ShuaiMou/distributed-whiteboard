@@ -91,11 +91,10 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
     }
 
     public void draw(java.util.List<Integer> pointss, Color color, String command, Client client,boolean flag) throws RemoteException{
-        System.out.println("draw before");
+
         for (Client c : users){
             if (!client.getUsername().equals(c.getUsername())){
-            c.paint(pointss,color,command,flag);
-            System.out.println("draw after");
+                c.paint(pointss,color,command,flag);
             }
 
         }
