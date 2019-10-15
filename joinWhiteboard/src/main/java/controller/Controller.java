@@ -24,7 +24,7 @@ public class Controller {
         colorButtonListener = new ColorButtonListener();
         drawOperationButtonListener = new DrawOperationButtonListener(view.getDrawPanel());
         drawPanelListener = new DrawPanelListener(view.getDrawPanel(), drawOperationButtonListener);
-        fileProcessListener = new FileProcessListener(this.view.getDrawPanel(), this.view.getMainFrame());
+        fileProcessListener = new FileProcessListener();
         windowListener = new WindowListener(view.getMainFrame());
         communicationPanelListener = new CommunicationPanelListener(view.getCommunicationPanel().getMessageInput());
         init();

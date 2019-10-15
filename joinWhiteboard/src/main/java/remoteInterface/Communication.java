@@ -1,6 +1,7 @@
 package remoteInterface;
 
 import java.awt.*;
+import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -13,6 +14,6 @@ public interface Communication extends Remote{
     //the parameter is designed for multi-team in the server.
     void quit1(String name) throws RemoteException;
     void close(Client client) throws RemoteException;
-    void drawImage(byte[] bytes) throws RemoteException;
+    void drawImage(byte[] bytes) throws IOException;
     void draw(java.util.List<Integer> pointss, Color color, String command, Client client, boolean flag) throws RemoteException;
 }

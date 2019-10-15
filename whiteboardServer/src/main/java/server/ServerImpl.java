@@ -4,6 +4,7 @@ import remoteInterface.Client;
 import remoteInterface.Communication;
 
 import java.awt.*;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -84,7 +85,7 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
         }
     }
 
-    public void drawImage(byte[] bytes) throws RemoteException {
+    public void drawImage(byte[] bytes) throws IOException {
         for (Client c : users){
             c.paintImage(bytes);
         }

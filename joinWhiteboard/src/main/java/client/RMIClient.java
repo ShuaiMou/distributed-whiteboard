@@ -61,13 +61,8 @@ public class RMIClient implements Client {
         }
     }
 
-    public void paintImage(byte[] bytes) throws RemoteException {
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read( new ByteArrayInputStream(bytes));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void paintImage(byte[] bytes) throws IOException {
+        BufferedImage image = ImageIO.read( new ByteArrayInputStream(bytes));
         drawPanel.setImage(image);
         drawPanel.repaint();
     }
