@@ -66,8 +66,6 @@ public class DrawPanel extends JScrollPane  {
         if ("line".equals(command)){
             bg.drawLine(x1,y1,x2,y2);
             g2d.drawLine(x1,y1,x3,y3);
-
-
         }else if("circle".equals(command)){
             bg.drawOval(Math.min(x1, x2), Math.min(y1, y2),
                     Math.abs(x1 - x2), Math.abs(x1 - x2));

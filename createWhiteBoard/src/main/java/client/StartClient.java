@@ -18,9 +18,7 @@ public class StartClient {
         ParseMainParameters args4j = new ParseMainParameters();
         CmdLineParser parser = new CmdLineParser(args4j);
 
-
         try {
-
             parser.parseArgument(args);
             String serverIPAddress = args4j.getIpAddress();
             int serverPort = args4j.getPort();
@@ -47,7 +45,5 @@ public class StartClient {
             e.printStackTrace();
         }
 
-
     }
-
 }

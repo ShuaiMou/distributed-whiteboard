@@ -12,6 +12,7 @@ import java.util.List;
 
 public class ServerImpl extends UnicastRemoteObject implements Communication {
 
+
     private static List<Client> users;
 
     public ServerImpl() throws RemoteException{
@@ -36,9 +37,17 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
         client.showOnlineUser(users);
     }
 
-    public void collaboratorLogin(Client client) throws RemoteException {
+    public void collaboratorLogin(Client client) throws IOException {
+        for (Client c : users){
+            if (client.getUsername().equals(c.getUsername())){
+                client.hintWindow("your username is duplicate with the exist user," +
+                        "\n please change another username and login again.");
+                client.exit();
+            }
+        }
         if (users.size() != 0){
-            boolean confirmation = users.get(0).hintWindow(client.getUsername() + " want to share your whiteboard");
+            boolean confirmation = users.get(0).hintWindow(client.getUsername() +
+                    " want to share your whiteboard");
             if ( !confirmation ){
                 client.hintWindow("you are not permitted.");
                 client.exit();
@@ -47,6 +56,8 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
                 for (Client c : users){
                     c.showOnlineUser(users);
                 }
+                client.paintImage(users.get(0).getImage());
+
             }
         }
     }
@@ -59,9 +70,7 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
         client.exit();
     }
 
-    public void quit1(String name) throws RemoteException {
-
-
+    public void kickOut(String name) throws RemoteException {
         for (Client c : users){
             if (c.getUsername().equals(name)){
                 users.remove(c);
@@ -92,13 +101,22 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
     }
 
     public void draw(java.util.List<Integer> pointss, Color color, String command, Client client,boolean flag) throws RemoteException{
-
         for (Client c : users){
             if (!client.getUsername().equals(c.getUsername())){
                 c.paint(pointss,color,command,flag);
             }
 
         }
+    }
+
+    public List<String> getUsersName(Client client) throws RemoteException {
+        List<String> names = new ArrayList<String>(10);
+        for (Client c : users){
+            if (!c.getUsername().equals(client.getUsername())){
+                names.add(c.getUsername());
+            }
+        }
+        return names;
     }
 
 }

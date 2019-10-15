@@ -4,6 +4,7 @@ import WhiteboardUtil.Point;
 import controller.listener.ColorButtonListener;
 import controller.listener.DrawOperationButtonListener;
 import controller.listener.DrawPanelListener;
+import lombok.Getter;
 import lombok.Setter;
 
 import javax.swing.*;
@@ -16,7 +17,7 @@ public class DrawPanel extends JScrollPane  {
     private ColorButtonListener colorButtonListener;
     private DrawOperationButtonListener drawOperationButtonListener;
     private DrawPanelListener drawPanelListener;
-    private @Setter BufferedImage image;
+    private @Getter BufferedImage image;
     private String command;
     private Color color;
     LinkedList<Point> freehandPoints;
@@ -68,8 +69,6 @@ public class DrawPanel extends JScrollPane  {
         if ("line".equals(command)){
             bg.drawLine(x1,y1,x2,y2);
             g2d.drawLine(x1,y1,x3,y3);
-
-
         }else if("circle".equals(command)){
             bg.drawOval(Math.min(x1, x2), Math.min(y1, y2),
                     Math.abs(x1 - x2), Math.abs(x1 - x2));

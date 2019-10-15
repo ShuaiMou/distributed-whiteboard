@@ -8,10 +8,6 @@ import java.rmi.RemoteException;
 
 public class FileProcessListener implements ActionListener {
 
-    public FileProcessListener() {
-
-    }
-
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("quit")){
             try {

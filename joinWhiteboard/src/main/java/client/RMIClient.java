@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -75,5 +76,19 @@ public class RMIClient implements Client {
         drawPanelListener.setFlag(flag);
         colorButtonListener.setColor(color);
         drawPanel.repaint();
+    }
+
+    public byte[] getImage() throws RemoteException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] imageInByte = null;
+        try {
+            ImageIO.write( drawPanel.getImage(), "jpg", baos );
+            baos.flush();
+            imageInByte = baos.toByteArray();
+            baos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return imageInByte;
     }
 }

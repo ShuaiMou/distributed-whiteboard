@@ -1,6 +1,5 @@
 package controller.listener;
 
-import client.RMIClient;
 import lombok.Setter;
 import multiInterface.BoardThread;
 import multiInterface.ManageMultiInterface;
@@ -15,6 +14,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.List;
 
 public class FileProcessListener implements ActionListener {
 
@@ -41,22 +41,23 @@ public class FileProcessListener implements ActionListener {
         } else if (e.getActionCommand().equals("close")) {
             closeFile();
         } else if (e.getActionCommand().equals("kick out")) {
-            try {
+           kickOut();
+        }
+    }
 
-                String [] options = RMIClient.nameList.toArray(new String[RMIClient.nameList.size()]);
+    private void kickOut(){
+        try {
 
-                String s = (String) JOptionPane.showInputDialog(null,"please select user:\n", "Kick out", JOptionPane.PLAIN_MESSAGE, new ImageIcon("xx.png"), options, "...");
-                if (s!=null){
-                    RMIClient.nameList.removeAll(RMIClient.nameList);
-                    BoardThread.server.quit1(s);
-                }
+            List<String> names = BoardThread.server.getUsersName(BoardThread.client);
+            String [] options = names.toArray(new String[names.size()]);
 
-
-            } catch (RemoteException ex) {
-                ex.printStackTrace();
+            String s = (String) JOptionPane.showInputDialog(null,"please select user:\n", "Kick out", JOptionPane.PLAIN_MESSAGE, null,options, "...");
+            if (s!=null){
+                BoardThread.server.kickOut(s);
             }
 
-
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
         }
     }
 

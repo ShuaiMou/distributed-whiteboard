@@ -10,12 +10,8 @@ import java.rmi.RemoteException;
 public class CommunicationPanelListener implements ActionListener {
     private JTextField messageInput;
 
-
     public CommunicationPanelListener(JTextField messageInput){
         this.messageInput = messageInput;
-
-
-
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -26,7 +22,5 @@ public class CommunicationPanelListener implements ActionListener {
         } catch (RemoteException e1) {
             e1.printStackTrace();
         }
-
-
     }
 }

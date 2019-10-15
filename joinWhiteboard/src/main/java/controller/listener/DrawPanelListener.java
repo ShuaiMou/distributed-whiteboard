@@ -29,11 +29,6 @@ public class DrawPanelListener extends MouseAdapter implements MouseListener {
         this.drawPanel = drawPanel;
     }
 
-    public void mouseClicked(MouseEvent e) {
-
-
-    }
-
     public void mousePressed(MouseEvent e) {
         startPoint = endPoint = new Point(e.getX(), e.getY());
         flag = true;
@@ -79,17 +74,5 @@ public class DrawPanelListener extends MouseAdapter implements MouseListener {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-    }
-
-    public void mouseMoved(MouseEvent e) {
-
-    }
-
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    public void mouseExited(MouseEvent e) {
-
     }
 }

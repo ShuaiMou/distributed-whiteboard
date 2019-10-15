@@ -14,4 +14,5 @@ public interface Client extends Remote{
     void showOnlineUser(List<Client> clients) throws RemoteException;
     void paintImage(byte[] bytes) throws IOException;
     void paint(List<Integer> pointss, Color color, String command, boolean flag) throws RemoteException;
+    byte[] getImage() throws RemoteException;
 }
