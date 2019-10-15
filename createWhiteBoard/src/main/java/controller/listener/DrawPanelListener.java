@@ -2,13 +2,14 @@ package controller.listener;
 
 import WhiteboardUtil.Point;
 import lombok.Getter;
+import lombok.Setter;
 import view.DrawPanel;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-@Getter
+@Getter@Setter
 public class DrawPanelListener extends MouseAdapter implements MouseListener {
     private Point startPoint;
     private Point endPoint;

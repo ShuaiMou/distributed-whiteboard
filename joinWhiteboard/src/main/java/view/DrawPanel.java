@@ -7,12 +7,9 @@ import controller.listener.DrawPanelListener;
 import lombok.Setter;
 import multiInterface.BoardThread;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 
@@ -115,24 +112,17 @@ public class DrawPanel extends JScrollPane  {
         }
         if(fl==false){
             g2d.drawImage(image, 0, 0, this);
-            try {
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ImageIO.write( image, "jpg", baos );
-                baos.flush();
-                byte[] imageInByte = baos.toByteArray();
-                baos.close();
 
-                BoardThread.server.draw(imageInByte);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
-    }
 
+        Point[] points = {new Point(x1,y1),new Point(x2,y2),new Point(x3,y3)};
 
-    public void erase(){
+        try {
+            if ( BoardThread.server != null)
+                BoardThread.server.draw(points,color,command,BoardThread.client,fl);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -115,16 +115,10 @@ public class DrawPanel extends JScrollPane  {
         }
         if(fl==false){
             g2d.drawImage(image, 0, 0, this);
-            try {
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ImageIO.write( image, "jpg", baos );
-                baos.flush();
-                byte[] imageInByte = baos.toByteArray();
-                baos.close();
-                BoardThread.server.draw(imageInByte);
 
-            } catch (RemoteException e) {
-                e.printStackTrace();
+            Point[] points = {new Point(x1,y1),new Point(x2,y2),new Point(x3,y3)};
+            try {
+                BoardThread.server.draw(points,color,command,BoardThread.client,fl);
             } catch (IOException e) {
                 e.printStackTrace();
             }

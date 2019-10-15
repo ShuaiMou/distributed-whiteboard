@@ -56,6 +56,8 @@ public class Controller {
         BoardThread.client.setCommunicationWindow(view.getCommunicationPanel().getCommunicationWindow());
         BoardThread.client.setOnlineUser(view.getCommunicationPanel().getOnlineUser());
         BoardThread.client.setDrawPanel(view.getDrawPanel());
+        BoardThread.client.setColorButtonListener(colorButtonListener);
+        BoardThread.client.setDrawPanelListener(drawPanelListener);
     }
 
 }
