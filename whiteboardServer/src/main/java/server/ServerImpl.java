@@ -31,6 +31,7 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
     }
 
     public void managerLogin(Client client) throws RemoteException {
+        System.out.println("aa");
         users.add(client);
         client.showOnlineUser(users);
     }
