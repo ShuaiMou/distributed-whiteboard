@@ -41,6 +41,7 @@ public class DrawPanel extends JScrollPane  {
         super.paint(g);
         if (drawOperationButtonListener != null){
             command = drawOperationButtonListener.getDrawOperationCommond();
+            input = drawOperationButtonListener.getInput1();
         }
         if (colorButtonListener != null){
             color = colorButtonListener.getColor();
@@ -62,7 +63,7 @@ public class DrawPanel extends JScrollPane  {
             x3 = drawPanelListener.getDragEndPoint().getX();
             y3 = drawPanelListener.getDragEndPoint().getY();
             fl = drawPanelListener.isFlag();
-            input = drawOperationButtonListener.getInput1();
+
         }
 
         if ("line".equals(command)){
@@ -106,7 +107,6 @@ public class DrawPanel extends JScrollPane  {
         }else if ("clear".equals(command)){
             image.getGraphics().fillRect(0, 0, this.getWidth(), this.getHeight());
         }else if ("text".equals(command)){
-            input = drawOperationButtonListener.getInput1();
             if (input != null) {
                 x3 = 0;
                 y3 = 0;
