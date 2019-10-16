@@ -92,4 +92,9 @@ public class RMIClient implements Client {
         }
         return imageInByte;
     }
+
+    public void clearWhiteboard() throws RemoteException {
+        drawPanelListener.getDrawOperationButtonListener().setDrawOperationCommond("clear");
+        drawPanel.repaint();
+    }
 }

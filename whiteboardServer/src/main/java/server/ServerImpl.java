@@ -33,7 +33,6 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
     }
 
     public void managerLogin(Client client) throws RemoteException {
-        System.out.println("aa");
         users.add(client);
         client.showOnlineUser(users);
     }
@@ -104,7 +103,9 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
     public void draw(java.util.List<Integer> pointss, Color color, String command, Client client,boolean flag,String input) throws RemoteException{
         for (Client c : users){
             if (!client.getUsername().equals(c.getUsername())){
-                c.paint(pointss,color,command,flag,input);
+                synchronized (this) {
+                    c.paint(pointss, color, command, flag, input);
+                }
             }
 
         }
@@ -120,4 +121,9 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
         return names;
     }
 
+    public void clearWhiteboard() throws RemoteException {
+        for (Client c : users){
+            c.clearWhiteboard();
+        }
+    }
 }

@@ -2,12 +2,14 @@ package controller.listener;
 
 import lombok.Getter;
 import lombok.Setter;
+import multiInterface.BoardThread;
 import view.DrawPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.rmi.RemoteException;
 
 @Setter @Getter
 public class DrawOperationButtonListener extends MouseAdapter implements ActionListener {
@@ -49,6 +51,11 @@ public class DrawOperationButtonListener extends MouseAdapter implements ActionL
             System.out.println("aaaa");
             drawOperationCommond = "clear";
             drawPanel.repaint();
+            try {
+                BoardThread.server.clearWhiteboard();
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
         }else if (e.getActionCommand().equals("text")){
 
             input1 = JOptionPane.showInputDialog("input text");

@@ -18,4 +18,5 @@ public interface Communication extends Remote{
     void drawImage(byte[] bytes) throws IOException;
     void draw(java.util.List<Integer> pointss, Color color, String command, Client client, boolean flag,String input) throws RemoteException;
     List<String> getUsersName(Client client) throws RemoteException;
+    void clearWhiteboard() throws RemoteException;
 }

@@ -42,6 +42,10 @@ public class FileProcessListener implements ActionListener {
             closeFile();
         } else if (e.getActionCommand().equals("kick out")) {
            kickOut();
+        }else {
+            Object[] selection = {"OK"};
+            JOptionPane.showOptionDialog(null, "this function is developing... ",
+                    "Warning",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, selection, null);
         }
     }
 
@@ -57,15 +61,19 @@ public class FileProcessListener implements ActionListener {
             }
 
         } catch (RemoteException ex) {
-            ex.printStackTrace();
+            System.out.println("");
         }
     }
 
 
     private void newFile() {
-        BoardThread thread = new BoardThread();
-        ManageMultiInterface.executor.execute(thread);
-
+//        BoardThread thread = new BoardThread();
+//        ManageMultiInterface.executor.execute(thread);
+        try {
+            BoardThread.server.clearWhiteboard();
+        } catch (RemoteException e1) {
+            e1.printStackTrace();
+        }
     }
 
 
