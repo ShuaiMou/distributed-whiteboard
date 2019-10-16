@@ -69,14 +69,24 @@ public class RMIClient implements Client {
     }
 
     public void paint(java.util.List<Integer> pointss, Color color, String command,boolean flag,String input) throws RemoteException {
+        String preCommand = drawPanelListener.getDrawOperationButtonListener().getDrawOperationCommond();
+        String preInput = drawPanelListener.getDrawOperationButtonListener().getInput1();
         drawPanelListener.getDrawOperationButtonListener().setDrawOperationCommond(command);
+        drawPanelListener.getDrawOperationButtonListener().setInput1(input);
         drawPanelListener.setStartPoint(new Point(pointss.get(0), pointss.get(1)));
         drawPanelListener.setEndPoint(new Point(pointss.get(2), pointss.get(3)));
         drawPanelListener.setDragEndPoint(new Point(pointss.get(4), pointss.get(5)));
         drawPanelListener.setFlag(flag);
         colorButtonListener.setColor(color);
-        drawPanelListener.getDrawOperationButtonListener().setInput1(input);
+
         drawPanel.repaint();
+        try {
+            Thread.currentThread().sleep(20);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        drawPanelListener.getDrawOperationButtonListener().setDrawOperationCommond(preCommand);
+        drawPanelListener.getDrawOperationButtonListener().setInput1(preInput);
     }
 
     public byte[] getImage() throws RemoteException {
