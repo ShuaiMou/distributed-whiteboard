@@ -4,23 +4,20 @@ import WhiteboardUtil.Point;
 import controller.listener.ColorButtonListener;
 import controller.listener.DrawOperationButtonListener;
 import controller.listener.DrawPanelListener;
+import lombok.Getter;
 import lombok.Setter;
-import multiInterface.BoardThread;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 @Setter
 public class DrawPanel extends JScrollPane  {
     private ColorButtonListener colorButtonListener;
     private DrawOperationButtonListener drawOperationButtonListener;
     private DrawPanelListener drawPanelListener;
-    private @Setter BufferedImage image;
+    private @Getter BufferedImage image;
     private String command;
     private Color color;
     LinkedList<Point> freehandPoints;
@@ -72,8 +69,6 @@ public class DrawPanel extends JScrollPane  {
         if ("line".equals(command)){
             bg.drawLine(x1,y1,x2,y2);
             g2d.drawLine(x1,y1,x3,y3);
-
-
         }else if("circle".equals(command)){
             bg.drawOval(Math.min(x1, x2), Math.min(y1, y2),
                     Math.abs(x1 - x2), Math.abs(x1 - x2));
@@ -114,22 +109,6 @@ public class DrawPanel extends JScrollPane  {
         }
         if(fl==false){
             g2d.drawImage(image, 0, 0, this);
-
-        }
-
-        List<Integer> pointss = new ArrayList<Integer>(6);
-        pointss.add(x1);
-        pointss.add(y1);
-        pointss.add(x2);
-        pointss.add(y2);
-        pointss.add(x3);
-        pointss.add(y3);
-
-        try {
-            if ( BoardThread.server != null)
-                BoardThread.server.draw(pointss,color,command,BoardThread.client,fl);
-        } catch (RemoteException e) {
-            e.printStackTrace();
         }
 
     }

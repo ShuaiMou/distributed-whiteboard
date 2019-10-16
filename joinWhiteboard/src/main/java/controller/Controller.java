@@ -24,7 +24,7 @@ public class Controller {
         colorButtonListener = new ColorButtonListener();
         drawOperationButtonListener = new DrawOperationButtonListener(view.getDrawPanel());
         drawPanelListener = new DrawPanelListener(view.getDrawPanel(), drawOperationButtonListener);
-        fileProcessListener = new FileProcessListener(this.view.getDrawPanel(), this.view.getMainFrame());
+        fileProcessListener = new FileProcessListener();
         windowListener = new WindowListener(view.getMainFrame());
         communicationPanelListener = new CommunicationPanelListener(view.getCommunicationPanel().getMessageInput());
         init();
@@ -51,6 +51,8 @@ public class Controller {
         view.getDrawPanel().setColorButtonListener(colorButtonListener);
         view.getDrawPanel().setDrawOperationButtonListener(drawOperationButtonListener);
         view.getDrawPanel().setDrawPanelListener(drawPanelListener);
+        drawPanelListener.setColorButtonListener(colorButtonListener);
+        view.getMainFrame().addWindowListener(windowListener);
         view.getMainFrame().addWindowListener(windowListener);
         view.getCommunicationPanel().getSend().addActionListener(communicationPanelListener);
         BoardThread.client.setCommunicationWindow(view.getCommunicationPanel().getCommunicationWindow());

@@ -1,6 +1,5 @@
 package controller.listener;
 
-import client.RMIClient;
 import lombok.Setter;
 import multiInterface.BoardThread;
 import multiInterface.ManageMultiInterface;
@@ -11,9 +10,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.List;
 
 public class FileProcessListener implements ActionListener {
 
@@ -40,22 +41,23 @@ public class FileProcessListener implements ActionListener {
         } else if (e.getActionCommand().equals("close")) {
             closeFile();
         } else if (e.getActionCommand().equals("kick out")) {
-            try {
+           kickOut();
+        }
+    }
 
-                String [] options = RMIClient.nameList.toArray(new String[RMIClient.nameList.size()]);
+    private void kickOut(){
+        try {
 
-                String s = (String) JOptionPane.showInputDialog(null,"please select user:\n", "Kick out", JOptionPane.PLAIN_MESSAGE, new ImageIcon("xx.png"), options, "...");
-                if (s!=null){
-                    RMIClient.nameList.removeAll(RMIClient.nameList);
-                    BoardThread.server.quit1(s);
-                }
+            List<String> names = BoardThread.server.getUsersName(BoardThread.client);
+            String [] options = names.toArray(new String[names.size()]);
 
-
-            } catch (RemoteException ex) {
-                ex.printStackTrace();
+            String s = (String) JOptionPane.showInputDialog(null,"please select user:\n", "Kick out", JOptionPane.PLAIN_MESSAGE, null,options, "...");
+            if (s!=null){
+                BoardThread.server.kickOut(s);
             }
 
-
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -112,28 +114,16 @@ public class FileProcessListener implements ActionListener {
 
 
     private void readFile(File file) {
-//        BufferedReader reader = null;
-//        String input = "";
-//        try {
-//            InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file), "UTF-8");
-//            reader = new BufferedReader(inputStreamReader);
-//            String temp;
-//            while ((temp = reader.readLine()) != null) {
-//                input = input.concat(temp);
-//            }
-//            pictureReaded = gson.fromJson(input, PictureQueue.class);
-//
-//
-//        } catch (Exception e) {
-//            System.out.println("There is a problem with opening the file.");
-//        } finally {
-//            Util.closeInputStream(reader);
-//            }
         try {
             BufferedImage img = ImageIO.read(file);
             drawPanel.setImage(img);
             drawPanel.repaint();
-            //g.drawImage(img, 0, 0, drawPanel.getWidth(), drawPanel.getHeight(), null);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write( img, "jpg", baos );
+            baos.flush();
+            byte[] imageInByte = baos.toByteArray();
+            baos.close();
+            BoardThread.server.drawImage(imageInByte);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -146,23 +136,6 @@ public class FileProcessListener implements ActionListener {
             savepath = "image";
         }
         try {
-//            Point location = frame.getLocation();
-//            int x = (int) location.getX();
-//            int y = (int) location.getY();
-//
-//            Dimension size = drawPanel.getSize();
-//            int width = (int) size.getWidth();
-//            int height = (int) size.getHeight();
-//
-//
-//            BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-//            Graphics2D g = image.createGraphics();
-//            g.translate(x, y);
-//            drawPanel.paint(g);
-//            ImageIO.write(image, "jpeg", new File("drawpanelImage.jpg"));
-//            BufferedImage myImage;
-//            myImage = new Robot().createScreenCapture(
-//                    new Rectangle(x + 100, y + 44, width, height));
             BufferedImage myImage = drawPanel.getImage();
             ImageIO.write(myImage, "jpg", new File(savepath + ".jpg"));
         } catch (Exception e) {
