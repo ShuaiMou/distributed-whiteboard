@@ -71,13 +71,14 @@ public class RMIClient implements Client {
         drawPanel.repaint();
     }
 
-    public void paint(List<Integer> pointss, Color color, String command, boolean flag) throws RemoteException {
+    public void paint(List<Integer> pointss, Color color, String command, boolean flag,String input) throws RemoteException {
         drawPanelListener.getDrawOperationButtonListener().setDrawOperationCommond(command);
         drawPanelListener.setStartPoint(new Point(pointss.get(0), pointss.get(1)));
         drawPanelListener.setEndPoint(new Point(pointss.get(2), pointss.get(3)));
         drawPanelListener.setDragEndPoint(new Point(pointss.get(4), pointss.get(5)));
         drawPanelListener.setFlag(flag);
         colorButtonListener.setColor(color);
+        drawPanelListener.setInput(input);
         drawPanel.repaint();
     }
 
