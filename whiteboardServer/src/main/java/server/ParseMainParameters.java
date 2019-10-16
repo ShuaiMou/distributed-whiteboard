@@ -13,6 +13,5 @@ public class ParseMainParameters {
 	@Option(name="-serverPort", required = false, usage = "tcp port")
 	private int port = 9999;
 
-	@Option(name="username", required = false, usage = "the user name")
-	private String username = "Saul";
+
 }
