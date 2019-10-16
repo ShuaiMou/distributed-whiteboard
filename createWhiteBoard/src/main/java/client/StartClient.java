@@ -23,8 +23,7 @@ public class StartClient {
             String serverIPAddress = args4j.getIpAddress();
             int serverPort = args4j.getPort();
             String username = args4j.getUsername();
-
-
+            
             BoardThread thread = new BoardThread();
             ManageMultiInterface.executor.execute(thread);
             BoardThread.client.setName(username);
