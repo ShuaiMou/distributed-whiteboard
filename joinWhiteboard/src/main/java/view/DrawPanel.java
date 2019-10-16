@@ -20,6 +20,7 @@ public class DrawPanel extends JScrollPane  {
     private @Getter BufferedImage image;
     private String command;
     private Color color;
+    private String input;
     LinkedList<Point> freehandPoints;
 
     private int x1 = 0;
@@ -106,6 +107,15 @@ public class DrawPanel extends JScrollPane  {
             g2d.drawLine(x1,y1,x2,y2);
         }else if ("clear".equals(command)){
             image.getGraphics().fillRect(0, 0, this.getWidth(), this.getHeight());
+        }else if ("text".equals(command)){
+            input = drawOperationButtonListener.getInput1();
+            if (input != null) {
+                x3 = 0;
+                y3 = 0;
+                bg.drawString(input, x1, y1);
+                g2d.drawString(input, x1, y1);
+            }
+
         }
         if(fl==false){
             g2d.drawImage(image, 0, 0, this);

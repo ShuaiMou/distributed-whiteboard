@@ -4,13 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 import view.DrawPanel;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+@Setter @Getter
+public class DrawOperationButtonListener extends MouseAdapter implements ActionListener {
 
-public class DrawOperationButtonListener implements ActionListener {
-
-    private @Setter @Getter String drawOperationCommond;
+    private String drawOperationCommond;
+    private String input1;
     private DrawPanel drawPanel;
+
     public DrawOperationButtonListener(DrawPanel drawPanel){
         this.drawPanel = drawPanel;
         drawOperationCommond = "init";
@@ -43,7 +47,11 @@ public class DrawOperationButtonListener implements ActionListener {
         }else if (e.getActionCommand().equals("clear")) {
             drawOperationCommond = "clear";
             drawPanel.repaint();
-        }else {
+        }else if (e.getActionCommand().equals("text")){
+             input1 = JOptionPane.showInputDialog("input text");
+            drawOperationCommond = "text";
+        }
+        else {
             drawOperationCommond = "init";
         }
     }
