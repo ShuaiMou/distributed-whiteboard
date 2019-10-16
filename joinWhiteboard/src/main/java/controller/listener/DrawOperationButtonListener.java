@@ -50,7 +50,7 @@ public class DrawOperationButtonListener extends MouseAdapter implements ActionL
             drawOperationCommond = "clear";
             drawPanel.repaint();
         }else if (e.getActionCommand().equals("text")){
-            System.out.println("aa");
+
             input1 = JOptionPane.showInputDialog("input text");
             drawOperationCommond = "text";
         }else {

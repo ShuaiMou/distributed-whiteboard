@@ -20,7 +20,7 @@ public class OperationPanel extends JPanel {
      */
     private void init(){
         drawOperationButtons = new JButton[10];
-        String[] buttons = {"line", "circle", "rectangle", "oval", "freehand", "small eraser", "middle eraser", "big eraser","clear","Text"};
+        String[] buttons = {"line", "circle", "rectangle", "oval", "freehand", "small eraser", "middle eraser", "big eraser","clear","text"};
         for (int i = 0; i < buttons.length; i++) {
             drawOperationButtons[i] = new JButton(buttons[i]);
             drawOperationButtons[i].setPreferredSize(new Dimension(100,40));

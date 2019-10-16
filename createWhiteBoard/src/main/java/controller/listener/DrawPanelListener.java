@@ -40,7 +40,9 @@ public class DrawPanelListener extends MouseAdapter implements MouseListener {
     public void mouseReleased(MouseEvent e) {
         endPoint = new Point(e.getX(), e.getY());
         flag = false;
+        input = drawOperationButtonListener.getInput1();
         drawPanel.repaint();
+
         List<Integer> pointss = new ArrayList<Integer>(6);
         pointss.add(startPoint.getX());
         pointss.add(startPoint.getY());

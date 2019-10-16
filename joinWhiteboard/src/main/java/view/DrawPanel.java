@@ -108,7 +108,7 @@ public class DrawPanel extends JScrollPane  {
         }else if ("clear".equals(command)){
             image.getGraphics().fillRect(0, 0, this.getWidth(), this.getHeight());
         }else if ("text".equals(command)){
-
+            input = drawOperationButtonListener.getInput1();
             if (input != null) {
                 x3 = 0;
                 y3 = 0;
