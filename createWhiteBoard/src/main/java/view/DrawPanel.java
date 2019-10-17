@@ -113,7 +113,6 @@ public class DrawPanel extends JScrollPane  {
                 bg.drawString(input, x1, y1);
                 g2d.drawString(input, x1, y1);
             }
-
         }
 
         if(fl==false){

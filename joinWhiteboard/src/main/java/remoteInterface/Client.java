@@ -16,4 +16,5 @@ public interface Client extends Remote{
     void paint(List<Integer> pointss, Color color, String command, boolean flag, String input) throws RemoteException;
     byte[] getImage() throws RemoteException;
     void clearWhiteboard() throws RemoteException;
+    boolean isRunningStatus() throws RemoteException;
 }

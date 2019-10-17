@@ -25,12 +25,15 @@ public class DrawPanelListener extends MouseAdapter implements MouseListener {
     private ColorButtonListener colorButtonListener;
     private String command;
     private String input;
+    private boolean runningStatus;
     public DrawPanelListener(DrawPanel drawPanel, DrawOperationButtonListener drawOperationButtonListener){
         this.drawOperationButtonListener = drawOperationButtonListener;
         this.drawPanel = drawPanel;
+        runningStatus = false;
     }
 
     public void mousePressed(MouseEvent e) {
+        runningStatus = true;
         startPoint = endPoint = new Point(e.getX(), e.getY());
         flag = true;
         command = drawOperationButtonListener.getDrawOperationCommond();
@@ -51,10 +54,11 @@ public class DrawPanelListener extends MouseAdapter implements MouseListener {
         pointss.add(0);
         pointss.add(0);
         try {
-            BoardThread.server.draw(pointss,colorButtonListener.getColor(),command,BoardThread.client,flag,input);
+            BoardThread.server.addCommands(pointss,colorButtonListener.getColor(),command,BoardThread.client,flag,input);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        runningStatus = false;
     }
 
     public void mouseDragged(MouseEvent e) {
@@ -73,7 +77,7 @@ public class DrawPanelListener extends MouseAdapter implements MouseListener {
         pointss.add(dragEndPoint.getX());
         pointss.add(dragEndPoint.getY());
         try {
-            BoardThread.server.draw(pointss,colorButtonListener.getColor(),command,BoardThread.client,flag,null);
+            BoardThread.server.addCommands(pointss,colorButtonListener.getColor(),command,BoardThread.client,flag,null);
         } catch (IOException ex) {
             ex.printStackTrace();
         }

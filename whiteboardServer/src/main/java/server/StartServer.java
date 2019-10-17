@@ -20,8 +20,11 @@ public class StartServer {
             String serverIPAddress = args4j.getIpAddress();
             int serverPort = args4j.getPort();
             LocateRegistry.createRegistry(serverPort);
-            Naming.rebind("rmi://"+serverIPAddress+ ":"+serverPort+"/Communication", server);
-            System.out.println(serverIPAddress);
+            Naming.rebind("rmi://" + serverIPAddress + ":"+serverPort+"/Communication", server);
+
+            ClientMouseActionListener clientMouseActionListener = new ClientMouseActionListener(server);
+            Thread thread = new Thread(clientMouseActionListener);
+            thread.run();
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {

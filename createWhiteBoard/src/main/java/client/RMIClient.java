@@ -25,7 +25,6 @@ public class RMIClient implements Client {
     private DrawPanelListener drawPanelListener;
     private ColorButtonListener colorButtonListener;
 
-
     public void showMessage(String message) throws RemoteException {
         communicationWindow.append(message);
     }
@@ -81,7 +80,6 @@ public class RMIClient implements Client {
         drawPanelListener.setDragEndPoint(new Point(pointss.get(4), pointss.get(5)));
         drawPanelListener.setFlag(flag);
         colorButtonListener.setColor(color);
-
         drawPanel.repaint();
         try {
             Thread.currentThread().sleep(20);
@@ -111,5 +109,9 @@ public class RMIClient implements Client {
     public void clearWhiteboard() throws RemoteException {
         drawPanelListener.getDrawOperationButtonListener().setDrawOperationCommond("clear");
         drawPanel.repaint();
+    }
+
+    public boolean isRunningStatus() throws RemoteException {
+        return drawPanelListener.isRunningStatus();
     }
 }

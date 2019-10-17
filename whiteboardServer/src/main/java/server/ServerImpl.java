@@ -7,16 +7,18 @@ import java.awt.*;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 
 public class ServerImpl extends UnicastRemoteObject implements Communication {
 
 
     private static List<Client> users;
+    public static Hashtable<Client, LinkedList<Object[]>> cachedCommands;
 
     public ServerImpl() throws RemoteException{
         users = new ArrayList<Client>(10);
+        cachedCommands = new Hashtable<Client,LinkedList<Object[]>>();
     }
 
     public void sendMessage(Client client, String message) throws RemoteException {
@@ -45,6 +47,7 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
                 client.exit();
             }
         }
+
         if (users.size() != 0){
             boolean confirmation = users.get(0).hintWindow(client.getUsername() +
                     " want to share your whiteboard");
@@ -57,7 +60,6 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
                     c.showOnlineUser(users);
                 }
                 client.paintImage(users.get(0).getImage());
-
             }
         }
     }
@@ -101,14 +103,26 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
     }
 
     public void draw(java.util.List<Integer> pointss, Color color, String command, Client client,boolean flag,String input) throws RemoteException{
-        for (Client c : users){
-            if (!client.getUsername().equals(c.getUsername())){
-                synchronized (this) {
-                    c.paint(pointss, color, command, flag, input);
-                }
-            }
 
+        client.paint(pointss, color, command, flag, input);
+
+    }
+
+    public void addCommands(List<Integer> pointss, Color color, String command, Client client, boolean flag, String input) throws RemoteException {
+        for (Client c : users){
+            if (!client.getUsername().equals(c.getUsername()) ){
+               if (cachedCommands.containsKey(c)){
+                   cachedCommands.get(c).add(new Object[]{pointss,color,command,flag,input});
+               }else {
+                   LinkedList<Object[]> linkedList = new LinkedList<Object[]>();
+                   Object[] object = {pointss,color,command,flag,input};
+                   linkedList.add(object);
+                   cachedCommands.put(c, linkedList);
+               }
+            }
         }
+
+
     }
 
     public List<String> getUsersName(Client client) throws RemoteException {

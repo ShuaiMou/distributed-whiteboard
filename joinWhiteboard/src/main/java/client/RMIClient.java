@@ -107,4 +107,8 @@ public class RMIClient implements Client {
         drawPanelListener.getDrawOperationButtonListener().setDrawOperationCommond("clear");
         drawPanel.repaint();
     }
+
+    public boolean isRunningStatus() throws RemoteException {
+        return drawPanelListener.isRunningStatus();
+    }
 }

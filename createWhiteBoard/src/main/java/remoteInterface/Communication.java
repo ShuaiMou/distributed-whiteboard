@@ -19,4 +19,5 @@ public interface Communication extends Remote{
     void draw(List<Integer> pointss, Color color, String command, Client client, boolean flag, String input) throws RemoteException;
     List<String> getUsersName(Client client) throws RemoteException;
     void clearWhiteboard() throws RemoteException;
+    void addCommands(List<Integer> pointss, Color color, String command, Client client, boolean flag, String input) throws  RemoteException;
 }
