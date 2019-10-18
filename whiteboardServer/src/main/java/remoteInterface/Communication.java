@@ -13,7 +13,6 @@ public interface Communication extends Remote{
     void managerLogin(Client client) throws RemoteException;
     void collaboratorLogin(Client client) throws IOException;
     void quit(Client client) throws RemoteException;
-    //the parameter is designed for multi-team in the server.
     void kickOut(String name) throws RemoteException;
     void close(Client client) throws RemoteException;
     void drawImage(byte[] bytes) throws IOException;
@@ -21,5 +20,5 @@ public interface Communication extends Remote{
     List<String> getUsersName(Client client) throws RemoteException;
     void clearWhiteboard() throws RemoteException;
     void addCommands(java.util.List<Integer> pointss, Color color, String command, Client client, boolean flag,String input) throws  RemoteException;
-    public ArrayList<Client> getUsers() throws RemoteException;
+    ArrayList<Client> getUsers() throws RemoteException;
 }

@@ -38,11 +38,7 @@ public class RMIClient implements Client {
         int exit = JOptionPane.showOptionDialog(communicationWindow, message,
                 "exit dialog", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                 null, selection, selection[0]);
-        if (exit == 0){
-            return true;
-        }else {
-            return false;
-        }
+        return exit == 0;
     }
 
     public void exit() throws RemoteException {
@@ -73,6 +69,8 @@ public class RMIClient implements Client {
     public void paint(List<Integer> pointss, Color color, String command, boolean flag,String input) throws RemoteException {
         String preCommand = drawPanelListener.getDrawOperationButtonListener().getDrawOperationCommond();
         String preInput = drawPanelListener.getDrawOperationButtonListener().getInput1();
+        Color preColor = colorButtonListener.getColor();
+
         drawPanelListener.getDrawOperationButtonListener().setDrawOperationCommond(command);
         drawPanelListener.getDrawOperationButtonListener().setInput1(input);
         drawPanelListener.setStartPoint(new Point(pointss.get(0), pointss.get(1)));
@@ -86,8 +84,14 @@ public class RMIClient implements Client {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        drawPanelListener.getDrawOperationButtonListener().setDrawOperationCommond(preCommand);
+
+
+        if (!"clear".equals(preCommand)) {
+            drawPanelListener.getDrawOperationButtonListener().setDrawOperationCommond(preCommand);
+        }
         drawPanelListener.getDrawOperationButtonListener().setInput1(preInput);
+        colorButtonListener.setColor(preColor);
+
 
 
     }

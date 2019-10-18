@@ -11,13 +11,13 @@ import java.util.LinkedList;
 
 public class ClientMouseActionListener implements Runnable{
     private Communication server;
-    public ClientMouseActionListener(Communication server){
+    ClientMouseActionListener(Communication server){
         this.server = server;
     }
 
     public void run() {
         while (true) {
-            Hashtable cachedCommands = (Hashtable) ServerImpl.cachedCommands;
+            Hashtable cachedCommands = ServerImpl.cachedCommands;
             ArrayList<Client> clients = null;
 
             try {
