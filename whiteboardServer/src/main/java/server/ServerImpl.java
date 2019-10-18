@@ -7,13 +7,14 @@ import java.awt.*;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ServerImpl extends UnicastRemoteObject implements Communication {
 
-
-    private static List<Client> users;
+    public static List<Client> users;
     public static Hashtable<Client, LinkedList<Object[]>> cachedCommands;
 
     public ServerImpl() throws RemoteException{
@@ -34,12 +35,14 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
 
     }
 
-    public void managerLogin(Client client) throws RemoteException {
+    public synchronized void managerLogin(Client client) throws RemoteException {
         users.add(client);
+        LinkedList<Object[]> linkedList = new LinkedList<Object[]>();
+        cachedCommands.put(client, linkedList);
         client.showOnlineUser(users);
     }
 
-    public void collaboratorLogin(Client client) throws IOException {
+    public synchronized void collaboratorLogin(Client client) throws IOException {
         for (Client c : users){
             if (client.getUsername().equals(c.getUsername())){
                 client.hintWindow("your username is duplicate with the exist user," +
@@ -56,6 +59,8 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
                 client.exit();
             }else {
                 users.add(client);
+                LinkedList<Object[]> linkedList = new LinkedList<Object[]>();
+                cachedCommands.put(client, linkedList);
                 for (Client c : users){
                     c.showOnlineUser(users);
                 }
@@ -64,18 +69,20 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
         }
     }
 
-    public void quit(Client client) throws RemoteException {
+    public synchronized void quit(Client client) throws RemoteException {
         users.remove(client);
+        cachedCommands.remove(client);
         for (Client c : users){
             c.showOnlineUser(users);
         }
         client.exit();
     }
 
-    public void kickOut(String name) throws RemoteException {
+    public synchronized void kickOut(String name) throws RemoteException {
         for (Client c : users){
             if (c.getUsername().equals(name)){
                 users.remove(c);
+                cachedCommands.remove(c);
                 for (Client d : users){
                     d.showOnlineUser(users);
                 }
@@ -87,10 +94,11 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
     }
 
 
-    public void close(Client client) throws RemoteException {
+    public synchronized void close(Client client) throws RemoteException {
         users.remove(client);
         for (Client c : users) {
             users.remove(c);
+            cachedCommands.remove(c);
             c.hintWindow("the manager closed this application, you are forced to quit.");
             c.exit();
         }
@@ -111,14 +119,7 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
     public void addCommands(List<Integer> pointss, Color color, String command, Client client, boolean flag, String input) throws RemoteException {
         for (Client c : users){
             if (!client.getUsername().equals(c.getUsername()) ){
-               if (cachedCommands.containsKey(c)){
-                   cachedCommands.get(c).add(new Object[]{pointss,color,command,flag,input});
-               }else {
-                   LinkedList<Object[]> linkedList = new LinkedList<Object[]>();
-                   Object[] object = {pointss,color,command,flag,input};
-                   linkedList.add(object);
-                   cachedCommands.put(c, linkedList);
-               }
+                cachedCommands.get(c).add(new Object[]{pointss,color,command,flag,input});
             }
         }
 
@@ -139,5 +140,13 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
         for (Client c : users){
             c.clearWhiteboard();
         }
+    }
+
+    public synchronized ArrayList<Client> getUsers(){
+        ArrayList<Client> userReturn = new ArrayList<Client>();
+        for (Client c : users){
+            userReturn.add(c);
+        }
+        return userReturn;
     }
 }

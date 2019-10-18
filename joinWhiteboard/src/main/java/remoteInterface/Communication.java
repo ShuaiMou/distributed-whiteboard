@@ -4,6 +4,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface Communication extends Remote{
@@ -20,4 +21,5 @@ public interface Communication extends Remote{
     List<String> getUsersName(Client client) throws RemoteException;
     void clearWhiteboard() throws RemoteException;
     void addCommands(List<Integer> pointss, Color color, String command, Client client, boolean flag, String input) throws  RemoteException;
+    public ArrayList<Client> getUsers() throws RemoteException;
 }

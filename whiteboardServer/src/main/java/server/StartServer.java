@@ -22,9 +22,12 @@ public class StartServer {
             LocateRegistry.createRegistry(serverPort);
             Naming.rebind("rmi://" + serverIPAddress + ":"+serverPort+"/Communication", server);
 
+            System.out.println("server started");
+
             ClientMouseActionListener clientMouseActionListener = new ClientMouseActionListener(server);
             Thread thread = new Thread(clientMouseActionListener);
             thread.run();
+
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
