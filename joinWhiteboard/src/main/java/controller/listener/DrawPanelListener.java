@@ -45,6 +45,7 @@ public class DrawPanelListener extends MouseAdapter implements MouseListener {
         flag = false;
         input = drawOperationButtonListener.getInput1();
         drawPanel.repaint();
+
         List<Integer> pointss = new ArrayList<Integer>(6);
         pointss.add(startPoint.getX());
         pointss.add(startPoint.getY());
@@ -52,15 +53,18 @@ public class DrawPanelListener extends MouseAdapter implements MouseListener {
         pointss.add(endPoint.getY());
         pointss.add(0);
         pointss.add(0);
-
         try {
             BoardThread.server.addCommands(pointss,colorButtonListener.getColor(),command,BoardThread.client,flag,input);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        if("freehand".equals(command) || "small eraser".equals(command)  || "middle eraser".equals(command)  || "big eraser".equals(command)) {
-            runningStatus = false;
+        try {
+            Thread.currentThread().sleep(200);
+        } catch (InterruptedException e1) {
+            e1.printStackTrace();
         }
+        runningStatus = false;
+
     }
 
     public void mouseDragged(MouseEvent e) {
@@ -69,19 +73,26 @@ public class DrawPanelListener extends MouseAdapter implements MouseListener {
         if("freehand".equals(command) || "small eraser".equals(command)  || "middle eraser".equals(command)  || "big eraser".equals(command)) {
             startPoint = endPoint;
             endPoint = new Point(e.getX(), e.getY());
+
         }
+
         drawPanel.repaint();
-        List<Integer> pointss = new ArrayList<Integer>(6);
-        pointss.add(startPoint.getX());
-        pointss.add(startPoint.getY());
-        pointss.add(endPoint.getX());
-        pointss.add(endPoint.getY());
-        pointss.add(dragEndPoint.getX());
-        pointss.add(dragEndPoint.getY());
-        try {
-            BoardThread.server.addCommands(pointss,colorButtonListener.getColor(),command,BoardThread.client,flag,null);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+
+        if("freehand".equals(command) || "small eraser".equals(command)  || "middle eraser".equals(command)  || "big eraser".equals(command)) {
+
+                List<Integer> pointss = new ArrayList<Integer>(6);
+                pointss.add(startPoint.getX());
+                pointss.add(startPoint.getY());
+                pointss.add(endPoint.getX());
+                pointss.add(endPoint.getY());
+                pointss.add(dragEndPoint.getX());
+                pointss.add(dragEndPoint.getY());
+                try {
+                    BoardThread.server.addCommands(pointss, colorButtonListener.getColor(), command, BoardThread.client, flag, null);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+            }
     }
 }

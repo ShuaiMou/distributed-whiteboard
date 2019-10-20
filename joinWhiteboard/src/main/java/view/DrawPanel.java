@@ -121,9 +121,6 @@ public class DrawPanel extends JScrollPane  {
             g2d.drawImage(image, 0, 0, this);
         }
 
-        if(!("freehand".equals(command) || "small eraser".equals(command)  || "middle eraser".equals(command)  || "big eraser".equals(command))) {
-            drawPanelListener.setRunningStatus(false);
-        }
 
     }
 

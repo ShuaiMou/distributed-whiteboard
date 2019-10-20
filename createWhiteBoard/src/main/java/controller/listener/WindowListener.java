@@ -23,4 +23,9 @@ public class WindowListener extends WindowAdapter {
             ManageMultiInterface.executor.shutdown();
         }
     }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        super.windowIconified(e);
+    }
 }
