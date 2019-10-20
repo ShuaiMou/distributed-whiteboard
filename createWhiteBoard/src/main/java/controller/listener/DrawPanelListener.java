@@ -58,7 +58,9 @@ public class DrawPanelListener extends MouseAdapter implements MouseListener {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        runningStatus = false;
+        if("freehand".equals(command) || "small eraser".equals(command)  || "middle eraser".equals(command)  || "big eraser".equals(command)) {
+            runningStatus = false;
+        }
     }
 
     public void mouseDragged(MouseEvent e) {
