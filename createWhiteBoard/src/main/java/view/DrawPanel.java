@@ -120,10 +120,6 @@ public class DrawPanel extends JScrollPane  {
 
         }
 
-        if(!("freehand".equals(command) || "small eraser".equals(command)  || "middle eraser".equals(command)  || "big eraser".equals(command))) {
-            drawPanelListener.setRunningStatus(false);
-        }
-
     }
 
 

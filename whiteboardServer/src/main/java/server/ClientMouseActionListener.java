@@ -37,6 +37,15 @@ public class ClientMouseActionListener implements Runnable{
                                 String command = (String) commands[2];
                                 boolean flag = (Boolean) commands[3];
                                 String input = (String) commands[4];
+                                System.out.println(client.getUsername() + ": " + command);
+                                if(!("freehand".equals(command) || "small eraser".equals(command)
+                                        || "middle eraser".equals(command)  || "big eraser".equals(command))) {
+                                    try {
+                                        Thread.currentThread().sleep(250);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
                                 server.draw(pointss, color, command, client, flag, input);
                             }
                         }
