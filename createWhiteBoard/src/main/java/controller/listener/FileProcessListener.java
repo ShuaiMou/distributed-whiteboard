@@ -2,7 +2,6 @@ package controller.listener;
 
 import lombok.Setter;
 import multiInterface.BoardThread;
-import multiInterface.ManageMultiInterface;
 import view.DrawPanel;
 
 import javax.imageio.ImageIO;
@@ -111,10 +110,11 @@ public class FileProcessListener implements ActionListener {
             try {
                 BoardThread.server.close(BoardThread.client);
             } catch (RemoteException e) {
-                e.printStackTrace();
+                System.out.print("");
             }finally {
-                frame.dispose();
-                ManageMultiInterface.executor.shutdown();
+                System.exit(0);
+//                frame.dispose();
+//                ManageMultiInterface.executor.shutdown();
             }
 
         }

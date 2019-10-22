@@ -1,10 +1,11 @@
 package controller.listener;
 
-import multiInterface.ManageMultiInterface;
+import multiInterface.BoardThread;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.rmi.RemoteException;
 
 public class WindowListener extends WindowAdapter {
     private JFrame mainFrame;
@@ -19,8 +20,15 @@ public class WindowListener extends WindowAdapter {
                 "exit dialog", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                 null, selection, selection[0]);
         if (exit == 0){
-            mainFrame.dispose();
-            ManageMultiInterface.executor.shutdown();
+            try {
+                BoardThread.server.close(BoardThread.client);
+            } catch (RemoteException ex) {
+                System.out.print("");
+            }finally {
+                System.exit(0);
+//                frame.dispose();
+//                ManageMultiInterface.executor.shutdown();
+            }
         }
     }
 

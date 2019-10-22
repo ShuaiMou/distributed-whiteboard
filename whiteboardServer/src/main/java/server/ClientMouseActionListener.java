@@ -30,7 +30,7 @@ public class ClientMouseActionListener implements Runnable{
                     try {
                         if (!client.isRunningStatus()) {
                             LinkedList<Object[]> list = (LinkedList<Object[]>) cachedCommands.get(client);
-                            if (list.size() > 0) {
+                            if (list != null && list.size() > 0) {
                                 Object[] commands = list.poll();
                                 java.util.List<Integer> pointss = (java.util.List<Integer>) commands[0];
                                 Color color = (Color) commands[1];

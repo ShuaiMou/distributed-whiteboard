@@ -5,3 +5,11 @@ whiteboardServer/target/
 .idea
 *.iml
 
+createWhiteBoard/.classpath
+createWhiteBoard/.project
+createWhiteBoard/.settings/
+joinWhiteboard/.classpath
+joinWhiteboard/.project
+joinWhiteboard/.settings/
+whiteboardServer/.project
+whiteboardServer/.settings/
