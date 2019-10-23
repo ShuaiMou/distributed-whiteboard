@@ -63,6 +63,7 @@ public class RMIClient implements Client {
 
 
     public void paintImage(byte[] bytes) throws IOException {
+        drawPanelListener.getDrawOperationButtonListener().setDrawOperationCommond("init");
         BufferedImage image = ImageIO.read( new ByteArrayInputStream(bytes));
         drawPanel.setImage(image);
         drawPanel.repaint();
@@ -115,7 +116,9 @@ public class RMIClient implements Client {
     public void clearWhiteboard() throws RemoteException {
         drawPanelListener.getDrawOperationButtonListener().setDrawOperationCommond("clear");
         drawPanel.repaint();
+
     }
+
 
     public boolean isRunningStatus() throws RemoteException {
         return drawPanelListener.isRunningStatus();
