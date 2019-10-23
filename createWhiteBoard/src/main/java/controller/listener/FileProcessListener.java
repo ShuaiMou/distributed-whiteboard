@@ -131,12 +131,6 @@ public class FileProcessListener implements ActionListener {
             baos.flush();
             byte[] imageInByte = baos.toByteArray();
             baos.close();
-            BoardThread.server.clearWhiteboard();
-            try {
-                Thread.currentThread().sleep(20);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             BoardThread.server.drawImage(imageInByte);
         } catch (IOException e) {
             e.printStackTrace();
