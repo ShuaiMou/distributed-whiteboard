@@ -115,6 +115,16 @@ public class RMIClient implements Client {
     public void clearWhiteboard() throws RemoteException {
         drawPanelListener.getDrawOperationButtonListener().setDrawOperationCommond("clear");
         drawPanel.repaint();
+
+        try {
+            Thread.currentThread().sleep(20);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        drawPanelListener.getDrawOperationButtonListener().setDrawOperationCommond("init");
+
+
     }
 
     public boolean isRunningStatus() throws RemoteException {
