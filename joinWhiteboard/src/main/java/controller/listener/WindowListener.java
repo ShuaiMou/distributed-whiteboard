@@ -25,7 +25,7 @@ public class WindowListener extends WindowAdapter {
             try {
                 BoardThread.server.quit(BoardThread.client);
             } catch (RemoteException e1) {
-                System.out.print("");;
+                System.out.print("");
             }
         }
     }

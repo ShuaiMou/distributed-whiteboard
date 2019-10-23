@@ -38,13 +38,13 @@ public class StartClient {
         } catch (CmdLineException e) {
             e.printStackTrace();
         } catch (NotBoundException e) {
-            e.printStackTrace();
+            System.exit(0);
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            System.exit(0);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.exit(0);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.exit(0);
         }
 
     }

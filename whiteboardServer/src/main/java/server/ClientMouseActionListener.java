@@ -28,7 +28,7 @@ public class ClientMouseActionListener implements Runnable{
             if (clients != null) {
                 for (Client client : clients) {
                     try {
-                        if (!client.isRunningStatus()) {
+                        if (client != null && !client.isRunningStatus()) {
                             LinkedList<Object[]> list = (LinkedList<Object[]>) cachedCommands.get(client);
                             if (list != null && list.size() > 0) {
                                 Object[] commands = list.poll();
