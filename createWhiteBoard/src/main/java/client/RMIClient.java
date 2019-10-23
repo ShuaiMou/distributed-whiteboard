@@ -21,9 +21,11 @@ public class RMIClient implements Client {
     private String name;
     private JTextArea communicationWindow;
     private JTextArea onlineUser;
+
     private DrawPanel drawPanel;
     private DrawPanelListener drawPanelListener;
     private ColorButtonListener colorButtonListener;
+    private JTextArea editingUser;
 
     public void showMessage(String message) throws RemoteException {
         communicationWindow.append(message);
@@ -117,5 +119,21 @@ public class RMIClient implements Client {
 
     public boolean isRunningStatus() throws RemoteException {
         return drawPanelListener.isRunningStatus();
+    }
+
+    public void showEditingUser(String username, boolean flag) throws RemoteException {
+        if (flag){
+            editingUser.append(  username + ", ");
+        }else {
+            editingUser.setText("");
+            String[] editingUsers = editingUser.getText().split(",");
+            for (int i = 0; i < editingUsers.length; i++) {
+                if (!username.equals(editingUsers[i]) && !editingUsers[i].equals("")){
+                    editingUser.append( editingUsers[i] + ", ");
+                }
+            }
+
+        }
+
     }
 }

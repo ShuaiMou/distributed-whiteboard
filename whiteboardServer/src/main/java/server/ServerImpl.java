@@ -150,4 +150,10 @@ public class ServerImpl extends UnicastRemoteObject implements Communication {
         return userReturn;
     }
 
+    public void showEditingUser(String username, boolean flag) throws RemoteException {
+        for (Client c : users){
+            c.showEditingUser(username, flag);
+        }
+    }
+
 }

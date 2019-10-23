@@ -17,4 +17,5 @@ public interface Client extends Remote{
     byte[] getImage() throws RemoteException;
     void clearWhiteboard() throws RemoteException;
     boolean isRunningStatus() throws RemoteException;
+    void showEditingUser(String username, boolean flag) throws  RemoteException;
 }

@@ -10,6 +10,7 @@ public class CommunicationPanel extends JPanel {
     private @Getter JTextArea onlineUser;
     private @Getter JTextField messageInput;
     private @Getter JButton send;
+    private @Getter JTextArea editingUser;
 
     CommunicationPanel(){
         init();
@@ -23,10 +24,16 @@ public class CommunicationPanel extends JPanel {
         onlineUser.append("online users: \n");
         this.add(onlineUser);
 
+        editingUser = new JTextArea();
+        editingUser.setLineWrap(true);
+        editingUser.setEditable(false);
+        editingUser.setPreferredSize(new Dimension(150,50));
+        this.add(editingUser);
+
         communicationWindow = new JTextArea();
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(communicationWindow);
-        scrollPane.setPreferredSize(new Dimension(150,350));
+        scrollPane.setPreferredSize(new Dimension(150,300));
         communicationWindow.setLineWrap(true);
         communicationWindow.setEditable(false);
         this.add(scrollPane);

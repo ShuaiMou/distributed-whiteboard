@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +31,18 @@ public class DrawPanelListener extends MouseAdapter implements MouseListener {
         this.drawOperationButtonListener = drawOperationButtonListener;
         this.drawPanel = drawPanel;
         runningStatus = false;
+        startPoint = new Point(0,0);
+        endPoint = new Point(0,0);
+        dragEndPoint = new Point(0,0);
     }
 
     public void mousePressed(MouseEvent e) {
         runningStatus = true;
+        try {
+            BoardThread.server.showEditingUser(BoardThread.client.getUsername(), true);
+        } catch (RemoteException e1) {
+            e1.printStackTrace();
+        }
         startPoint = endPoint = new Point(e.getX(), e.getY());
         flag = true;
         command = drawOperationButtonListener.getDrawOperationCommond();
@@ -64,7 +73,11 @@ public class DrawPanelListener extends MouseAdapter implements MouseListener {
             e1.printStackTrace();
         }
         runningStatus = false;
-
+        try {
+            BoardThread.server.showEditingUser(BoardThread.client.getUsername(), false);
+        } catch (RemoteException e1) {
+            e1.printStackTrace();
+        }
     }
 
     public void mouseDragged(MouseEvent e) {

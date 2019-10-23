@@ -59,6 +59,7 @@ public class Controller {
         BoardThread.client.setDrawPanel(view.getDrawPanel());
         BoardThread.client.setColorButtonListener(colorButtonListener);
         BoardThread.client.setDrawPanelListener(drawPanelListener);
+        BoardThread.client.setEditingUser(view.getCommunicationPanel().getEditingUser());
     }
 
 }

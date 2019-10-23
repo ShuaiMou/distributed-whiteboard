@@ -7,8 +7,8 @@ import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import remoteInterface.Communication;
 
+import javax.swing.*;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -37,13 +37,11 @@ public class StartClient {
             BoardThread.server.collaboratorLogin(BoardThread.client);
         } catch (CmdLineException e) {
             e.printStackTrace();
-        } catch (NotBoundException e) {
-            System.exit(0);
-        } catch (MalformedURLException e) {
-            System.exit(0);
-        } catch (InterruptedException e) {
-            System.exit(0);
-        } catch (IOException e) {
+
+        } catch (NotBoundException | InterruptedException | IOException e) {
+            Object[] selection = {"OK"};
+            JOptionPane.showOptionDialog(null, "there is somthing wrong to find the RMI service, please try again.",
+                    "Warning",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, selection, null);
             System.exit(0);
         }
 
